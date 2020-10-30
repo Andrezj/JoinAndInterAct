@@ -15,42 +15,57 @@
     </div> 
     <div>
         <div>
-            <table>
-                <thead>
-                    <tr>
-                        <th colspan="3">See what is going around the area</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>                        </td>
-                        <td>
-                            <label for="fname">Add Interest</label>
-                            <input type="text" id="fname" name="fname" placeholder="What you like?"><br><br>                        
-                        </td>
-                        <td>
-                            <label for="fname">Add Activity</label>
-                            <input type="text" id="fname" name="fname" placeholder="What you doing?"><br><br> 
-                        </td>
-                        <td>
-                            <button>Allow Location Access</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <div>
+                <table style=
+                    "margin: auto;
+                    width: 100%;
+                    height: fit-content;
+                    display: inline-flexbox;
+                    flex-direction: column;
+                    justify-content: center;"
+                >
+                    <thead>
+                        <tr>
+                            <th colspan="3 padding">See what is going around the area</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <label for="fname">Add Interest</label>
+                                <input type="text" id="fname" name="fname" placeholder="What you like?"><br><br>                        
+                            </td>
+                            <td>
+                                <label for="fname">Add Activity</label>
+                                <input type="text" id="fname" name="fname" placeholder="What are you doing?"><br><br> 
+                            </td>
+                            <td style="display: flex;
+                                flex-direction: column;"
+                            >
+                                <button>Allow Location Access</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
             <h3>Map</h3>
             <p>
                 Only give us access to your location if you feel safe to do it!<button style="padding:5px">Dismiss my location</button>
             </p>
             <div>
-                <iframe>
+                <iframe width="85%" height="300" style="margin-left: 2rem; margin-right: 2rem;">
                 </iframe>
             </div>
-            <button>Find People</button>
-            <button>Shout Out</button>
-            <button>Hide</button>
-            <button>Make Friends With</button>
-            <button>Block</button>
-            <button>Be a ghost somewhere</button>
+                <p>
+                    <button>Find People</button>
+                    <button>Shout Out</button>
+                    <button>Hide</button>
+                    <button>Make Friends With</button>
+                    <button>Block</button>
+                </p>
+                <p>
+                    <button>Be a ghost somewhere</button>
+                </p>
         </div>
     </div>
 </body>
