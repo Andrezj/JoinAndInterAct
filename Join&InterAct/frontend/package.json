@@ -4,11 +4,11 @@
   "description": "frontend packages",
   "main": "render.js",
   "dependencies": {
-    "express": "^4.17.1",
     "live": "^0.1.25-beta.0",
     "reload": "^3.1.1"
   },
   "devDependencies": {
+    "express": "^4.17.1",
     "livereload": "^0.9.1",
     "ts-node": "^9.0.0",
     "typescript": "^4.0.3"
