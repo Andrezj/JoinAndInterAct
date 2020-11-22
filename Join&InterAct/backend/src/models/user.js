@@ -16,3 +16,14 @@ interest = {
     scope : 'entertainment' | 'self-grow' | 'education' | 'reading'| 'health'| '[\s\S]*',
     title : string
 }
+
+activity = {
+    scope : 'entertainment' | 'self-grow' | 'education' | 'reading'| 'health'| '[\s\S]*',
+    title : string,
+    location : location
+}
+
+location = {
+    latitude : Number,
+    longitude : Number
+}
