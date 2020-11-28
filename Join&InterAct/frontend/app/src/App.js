@@ -3,6 +3,7 @@ import './global.css';
 import MainNavBar from './components/top_main_navbar';
 import HeaderForm from './components/header_form';
 import MapHeader from './components/map_header';
+import Mapbox from './components/map/mapBox';
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <MainNavBar />
       <HeaderForm />
       <MapHeader />
+      <Mapbox />
     </>
   );
 }
