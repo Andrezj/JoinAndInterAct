@@ -1,6 +1,7 @@
 import React from "react"
 import mapboxgl from "mapbox-gl"
 import style from "./basic_main.json"
+import fetchFakeData from "./fetchFakeData"
 
 const MapContext = React.createContext(undefined)
 
@@ -20,7 +21,7 @@ function Mapbox(props) {
       })
   
       // We need to wait for 'load' event
-      mapObj.on("load", () => setMap(mapObj))
+      mapObj.on("load", setMap(mapObj))
     }, [])
   
     return (
@@ -31,5 +32,5 @@ function Mapbox(props) {
       </div>
     )
   }
-  
+
   export default Mapbox
