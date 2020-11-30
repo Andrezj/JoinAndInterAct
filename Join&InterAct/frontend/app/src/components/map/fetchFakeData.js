@@ -4,7 +4,7 @@ const fetchFakeData = centerCoordinates => {
       const id = i;
       const { longitude, latitude } = getRandomCoordinate(centerCoordinates);
       newFeaturesList.push({
-        type: 'geojson',
+        type: 'Feature',
         geometry: {
           type: 'Point',
           coordinates: [longitude, latitude],

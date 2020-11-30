@@ -13,7 +13,31 @@ function App() {
       <HeaderForm />
       <MapHeader />
       <Mapbox>
-        <GeojsonCircles geojson={{ type: "Point", coordinates: [125.74, 39.01] }} />
+        <ul>
+          <GeojsonCircles geojson={
+            { 
+              type: 'FeatureCollection',
+              features: [
+                {
+                  type: 'Feature' ,
+                  geometry: {type: "Point", coordinates: [125.74, 39.01]}
+                },
+                {
+                  type: 'Feature' ,
+                  geometry: {type: "Point", coordinates: [120.74, 30.01]}
+                },
+                {
+                  type: 'Feature' ,
+                  geometry: {type: "Point", coordinates: [125.54, 38.91]}
+                },
+                {
+                  type: 'Feature' ,
+                  geometry: {type: "Point", coordinates: [122.74, 40.01]}
+                },
+              ]
+            }} />
+          {/* <GeojsonCircles geojson={{ id: "2", type: "Point", coordinates: [120.74, 36.01] }} /> */}
+        </ul>
       </Mapbox>
     </>
   );
