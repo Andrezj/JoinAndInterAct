@@ -1,5 +1,4 @@
-import React from "react"
-import mapboxgl from "mapbox-gl"
+import React, { useEffect } from "react"
 import { useMap } from "../map/mapBox"
 import fetchFakeData from "../map/fetchFakeData"
 
@@ -7,7 +6,16 @@ function GeojsonCircles(props) {
   // Getting map from context
   const map = useMap()
   const center = map.getCenter();
+  console.log(center);
+  const centerGeoJson = {
+    type: 'Feature' ,
+    geometry: {type: "Point", coordinates: [center.lng, center.lat]}
+  };
   const { lng, lat } = center;
+
+  useEffect(() => {
+    props.geojson.features.push(centerGeoJson);
+  }, []);
 
   // Defining data source and layer
   React.useEffect(() => {
@@ -26,14 +34,14 @@ function GeojsonCircles(props) {
       paint: {
         "circle-color": "red",
       },
-    })
+    });
 
 
     return () => {
       map.removeLayer("circle-layer")
       map.removeSource("circle-source")
     }
-  }, [])
+  }, []);
 
   // Updating data
   React.useEffect(async () => {
@@ -43,7 +51,7 @@ function GeojsonCircles(props) {
       map.getSource("circle-source").setData(props.geojson);
     }
     loadDots();
-  }, [props.geojson]);
+  }, [props.geojson.features]);
 
   return null
 }
