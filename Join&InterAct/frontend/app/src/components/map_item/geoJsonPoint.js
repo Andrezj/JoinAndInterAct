@@ -1,19 +1,26 @@
-import React, { useEffect } from "react"
-import { useMap } from "../map/mapBox"
-import fetchFakeData from "../map/fetchFakeData"
+import React, { useEffect, useRef } from "react";
+import ReactDOM from 'react-dom';
+import mapboxgl from "mapbox-gl";
+import { useMap } from "../map/mapBox";
+import fetchFakeData from "../map/fetchFakeData";
+import popUpRef from './popup';
 
 function GeojsonCircles(props) {
   // Getting map from context
-  const map = useMap()
+  const map = useMap();
+  const popUpRef = useRef(new mapboxgl.Popup({ offset: 15 }));
   const center = map.getCenter();
   console.log(center);
-  const centerGeoJson = {
-    type: 'Feature' ,
-    geometry: {type: "Point", coordinates: [center.lng, center.lat]}
-  };
   const { lng, lat } = center;
 
   useEffect(() => {
+    const len = props.geojson.features.length;
+    const newId = String(len)
+    const centerGeoJson = {
+    id: newId,
+    type: 'Feature' ,
+    geometry: {type: "Point", coordinates: [center.lng, center.lat]}
+  };
     props.geojson.features.push(centerGeoJson);
   }, []);
 
@@ -42,6 +49,18 @@ function GeojsonCircles(props) {
       map.removeSource("circle-source")
     }
   }, []);
+
+  /* map.on('click', 'circle-layer', e => {
+    if (e.features.length) {
+      const feature = e.features[0];
+      // create popup node
+      const popupNode = document.createElement('div');
+      ReactDOM.render(<Popup feature={feature} />, popupNode);
+      // set popup on map
+      popUpRef.current.setLngLat(feature.geometry.coordinates).setDOMContent(popupNode).addTo(map);
+    }
+  }); */
+  
 
   // Updating data
   React.useEffect(async () => {
