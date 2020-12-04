@@ -1,16 +1,21 @@
 import React, { useState, useEffect, useRef } from "react";
+import ReactDom from 'react-dom';
+import Popup from '../map_item/popup';
 import mapboxgl from "mapbox-gl";
 import style from "./basic_main.json";
+import mapStyle from './map-style.css';
 
-const MapContext = React.createContext(undefined)
+const MapContext = React.createContext(undefined);
 
-export const useMap = () => React.useContext(MapContext)
-
+export const useMap = () => React.useContext(MapContext);
 
 function Mapbox(props) {
     const mapRoot = useRef(null);
+    const popUpRef = useRef(new mapboxgl.Popup({ offset: 15 }));
+
     const [map, setMap] = React.useState(undefined);
     const [center, setCenter] = useState(undefined);
+    const [isMapReady, setIsMapReady] = useState(false);
     
     useEffect(() => {
       navigator.geolocation.getCurrentPosition(
@@ -24,7 +29,8 @@ function Mapbox(props) {
             setCenter(coords);
           },
           (err) => {
-            console.log(err);
+            const lng = Math.floor(Math.random() * (1 + 180 - (-180))) -180;
+            const lat = Math.floor(Math.random() * (1 + 90 - (-90))) -90;
           },
           {
             timeout: 40000,
@@ -46,16 +52,33 @@ function Mapbox(props) {
         })
     
         // We need to wait for 'load' event
+        if (map !== undefined) {
+          map.remove();
+        }
         mapObj.on("load", setMap(mapObj))
-
-        if (map !== undefined)
-          return () => map.remove();
+        
+        if (map !== undefined) {
+          const lngLat = new mapboxgl.LngLat(center[0], center[1]);
+          const newPopup = new mapboxgl.Popup({ offset: 15 })
+          newPopup.setLngLat(lngLat).setText(`Achei Você!`).addTo(map);
+        }
+        
+        if (map !== undefined) {
+          setIsMapReady(true)
+          return () => {
+            map.remove();
+          }
+        }
       }
     }, [center])
+
+    useEffect(() => {
+
+    }, [isMapReady])
   
     return (
-      <div ref={mapRoot} style={{ height: "400px", margin: "20px 0" }}>
-        {map !== undefined && (
+      <div ref={mapRoot} className="map-container" /* style={{ height: "400px", margin: "20px 0" }} */>
+        {map !== undefined &&  (
           <MapContext.Provider value={map}>{props.children}</MapContext.Provider>
         )}
       </div>

@@ -5,6 +5,7 @@ import HeaderForm from './components/header_form';
 import MapHeader from './components/map_header';
 import Mapbox from './components/map/mapBox';
 import GeojsonCircles from './components/map_item/geoJsonPoint';
+import Popup from './components/map_item/popup';
 
 function App() {
   return (
@@ -33,7 +34,8 @@ function App() {
                 geometry: {type: "Point", coordinates: [122.74, 40.01]}
               },
             ]
-          }} />
+          }}>
+          </GeojsonCircles>
       </Mapbox>
     </>
   );

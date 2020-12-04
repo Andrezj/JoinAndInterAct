@@ -1,6 +1,6 @@
 const fetchFakeData = centerCoordinates => {
     const newFeaturesList = [];
-    for (let i = 0; i < 9; i++) {
+    for (let i = 0; i < 15; i++) {
       const id = i;
       const centerPoint = getRandomCoordinate(centerCoordinates);
       newFeaturesList.push({
@@ -15,6 +15,7 @@ const fetchFakeData = centerCoordinates => {
           description: `description for Random Point #${id}`,
         },
       });
+      console.log(newFeaturesList[i].properties.id)
     }
   
     return Promise.resolve({
@@ -29,7 +30,7 @@ const fetchFakeData = centerCoordinates => {
   const getRandomCoordinate = (center) => {
     const centerLon = center.lng;
     const centerLat = center.lat;
-    const r = 0.025 * Math.sqrt(Math.random());
+    const r = 0.05 * Math.sqrt(Math.random());
     const theta = Math.random() * 2 * Math.PI;
     const latitude = centerLat + r * Math.cos(theta);
     const longitude = centerLon + r * Math.sin(theta);
