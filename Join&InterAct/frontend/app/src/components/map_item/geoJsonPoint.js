@@ -40,7 +40,7 @@ function GeojsonCircles(props) {
 
   // Defining data source and layer
   React.useEffect(() => {
-    map.addSource("circle-source", {
+    map.addSource("red-circle-source", {
       type: "geojson",
       // By default we're using just an empty geojson
       data: {
@@ -49,9 +49,9 @@ function GeojsonCircles(props) {
       },
     })
     map.addLayer({
-      id: "circle-layer",
+      id: "red-circle-layer",
       type: "circle",
-      source: "circle-source",
+      source: "red-circle-source",
       paint: {
         "circle-color": "red",
       },
@@ -75,14 +75,14 @@ function GeojsonCircles(props) {
 
 
     return () => {
-      map.removeLayer("circle-layer")
-      map.removeSource("circle-source")
+      map.removeLayer("red-circle-layer")
+      map.removeSource("red-circle-source")
       map.removeLayer("blue-circle-layer")
       map.removeSource("blue-circle-source")
     }
   }, []);
 
-  /* map.on('click', 'circle-layer', e => {
+  /* map.on('click', 'red-circle-layer', e => {
     map.getCanvas().style.cursor = 'pointer';
     var popup = new mapboxgl.Popup({ closeOnClick: false })
       .setLngLat([-96, 37.8])
@@ -103,7 +103,7 @@ function GeojsonCircles(props) {
     closeOnClick: false
   }); */
 
-  map.on('mouseenter', 'circle-layer', function (e) {
+  map.on('mouseenter', 'red-circle-layer', function (e) {
     if (map.queryRenderedFeatures(e.point).filter(feature => feature.source !== 'circle-source').length === 0) {
       console.log();
     }
@@ -113,7 +113,6 @@ function GeojsonCircles(props) {
     var coordinates = e.features[0].geometry.coordinates.slice();
     var description = e.features[0].properties.description;
     var id = e.features[0].properties.id;
-
 
     // Ensure that if the map is zoomed out such that multiple
     // copies of the feature are visible, the popup appears
@@ -128,9 +127,9 @@ function GeojsonCircles(props) {
     ReactDOM.render(<Popup feature={feature} />, popupNode);
     popUpRef.current.setLngLat(e.lngLat).setDOMContent(popupNode).addTo(map);
 
-    const newPopup = new mapboxgl.Popup()
+    /* const newPopup = new mapboxgl.Popup()
       .setLngLat(e.lngLat)
-      .addTo(map);
+      .addTo(map); */
 
     // create popup node
     /* setPopup(newPopup);
@@ -148,13 +147,12 @@ function GeojsonCircles(props) {
       node.style.display = 'none';
       node.textContent = '';
     } */
-
+    e.preventDefault();
   });
 
-  /* map.on('mouseleave', 'circle-layer', function () {
+  map.on('mouseleave', 'red-circle-layer', function () {
     map.getCanvas().style.cursor = '';
-    popUpRef.current.remove();
-  }); */
+  });
 
 
   // Updating data
@@ -162,7 +160,7 @@ function GeojsonCircles(props) {
     async function loadDots() {
       const results = await fetchFakeData(center);
       map.getSource("blue-circle-source").setData(centerGeoJson);
-      map.getSource("circle-source").setData(results);
+      map.getSource("red-circle-source").setData(results);
     }
     loadDots();
   }, [props.geojson.features]);

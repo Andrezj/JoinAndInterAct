@@ -5,7 +5,6 @@ import HeaderForm from './components/header_form';
 import MapHeader from './components/map_header';
 import Mapbox from './components/map/mapBox';
 import GeojsonCircles from './components/map_item/geoJsonPoint';
-import Popup from './components/map_item/popup';
 
 function App() {
   return (

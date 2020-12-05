@@ -11,7 +11,6 @@ export const useMap = () => React.useContext(MapContext);
 
 function Mapbox(props) {
     const mapRoot = useRef(null);
-    const popUpRef = useRef(new mapboxgl.Popup({ offset: 15 }));
 
     const [map, setMap] = React.useState(undefined);
     const [center, setCenter] = useState(undefined);
