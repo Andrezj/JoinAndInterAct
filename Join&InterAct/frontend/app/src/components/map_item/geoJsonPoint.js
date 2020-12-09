@@ -12,7 +12,7 @@ export const usePopup = () => React.useContext(popupContext);
 function GeojsonCircles(props) {
   // Getting map from context
   const map = useMap();
-  var markerHeight = 30, markerRadius = 10, linearOffset = 25;
+  var markerHeight = 15, markerRadius = 10, linearOffset = 25;
   var popupOffsets = {
     'top': [0, 0],
     'top-left': [0, 0],
@@ -34,8 +34,6 @@ function GeojsonCircles(props) {
     geometry: { type: "Point", coordinates: [center.lng, center.lat] }
   };
   /* props.geojson.features.push(centerGeoJson); */
-  useEffect(() => {
-  }, []);
 
   // Defining data source and layer
   React.useEffect(() => {
@@ -106,31 +104,33 @@ function GeojsonCircles(props) {
   var lastXCoord = undefined;
   var lastYCoord = undefined;
   var lastPos = undefined;
+  var lastFeature = undefined;
 
-  function popup(e) {
-    // Change the cursor style as a UI indicator.
-    const canvas = map.getCanvas();
-    if (e !== undefined) {
-      canvas.style.cursor = 'pointer';
-      ReactDOM.render(<Popup feature={e.features[0]} />, node);
-      popUpRef.current.trackPointer().setDOMContent(node).addTo(map);
-      /* node.style.left = `${e.originalEvent.clientX}px`;
-      node.style.top = `${e.originalEvent.clientY}px`; */
-      /* node.style.display = 'block';
-      lastXCoord = `${e.originalEvent.clientX}px`;
-      lastYCoord = `${e.originalEvent.clientY}px`; */
-      lastPos = e.lngLat;
-    } else {
-      canvas.style.cursor = '';
-      popUpRef.current.setLngLat(lastPos);
-      /* node.style.left = lastXCoord;
-      node.style.top = lastYCoord; */
-    }
-  };
+  React.useLayoutEffect(() => {
+    function popup(e) {
+      // Change the cursor style as a UI indicator.
+      const canvas = map.getCanvas();
+      if (e !== undefined && e.features[0] !== lastFeature) {
+        lastFeature = e.features[0];
+        canvas.style.cursor = 'pointer';
+        ReactDOM.render(<Popup feature={e.features[0]} />, node);
+        popUpRef.current.setLngLat(e.lngLat).setDOMContent(node).addTo(map);
+        popUpRef.current.trackPointer();
+        lastPos = e.lngLat;
+        /* node.style.left = `${e.originalEvent.clientX}px`;
+        node.style.top = `${e.originalEvent.clientY}px`; */
+        /* node.style.display = 'block';
+        lastXCoord = `${e.originalEvent.clientX}px`;
+        lastYCoord = `${e.originalEvent.clientY}px`; */
+      } else {
+        canvas.style.cursor = '';
+        popUpRef.current.setLngLat(lastPos);
+      }
+    };
 
-  map.on('mouseenter', 'red-circle-layer', event => popup(event));
-  map.on('mouseleave', 'red-circle-layer', () => popup());
-
+    map.on('mouseenter', 'red-circle-layer', event => popup(event));
+    map.on('mouseleave', 'red-circle-layer', () => popup());
+  });
 
   // Updating data
   React.useEffect(async () => {
