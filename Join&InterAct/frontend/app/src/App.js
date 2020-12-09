@@ -13,6 +13,7 @@ function App() {
       <HeaderForm />
       <MapHeader />
       <Mapbox>
+        <pre id="features"></pre>
         <GeojsonCircles geojson={
           { 
             type: 'FeatureCollection',

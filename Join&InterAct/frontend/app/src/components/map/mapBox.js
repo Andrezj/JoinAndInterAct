@@ -39,7 +39,7 @@ function Mapbox(props) {
 
   
     // Declare a map initialization effect
-    React.useEffect(() => {
+    React.useLayoutEffect(() => {
 
       if(center !== undefined) {
 
@@ -55,12 +55,6 @@ function Mapbox(props) {
           map.remove();
         }
         mapObj.on("load", setMap(mapObj))
-        
-        if (map !== undefined) {
-          const lngLat = new mapboxgl.LngLat(center[0], center[1]);
-          const newPopup = new mapboxgl.Popup({ offset: 15 })
-          newPopup.setLngLat(lngLat).setText(`Achei Você!`).addTo(map);
-        }
         
         if (map !== undefined) {
           setIsMapReady(true)

@@ -12,11 +12,11 @@ export const usePopup = () => React.useContext(popupContext);
 function GeojsonCircles(props) {
   // Getting map from context
   const map = useMap();
-  var markerHeight = 50, markerRadius = 10, linearOffset = 25;
+  var markerHeight = 30, markerRadius = 10, linearOffset = 25;
   var popupOffsets = {
     'top': [0, 0],
-    'top-left': [0,0],
-    'top-right': [0,0],
+    'top-left': [0, 0],
+    'top-right': [0, 0],
     'bottom': [0, -markerHeight],
     'bottom-left': [linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
     'bottom-right': [-linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
@@ -24,7 +24,6 @@ function GeojsonCircles(props) {
     'right': [-markerRadius, (markerHeight - markerRadius) * -1]
   };
   const popUpRef = useRef(new mapboxgl.Popup({ anchor: 'bottom', offset: popupOffsets }));
-  const [popup, setPopup] = useState(undefined);
   const center = map.getCenter();
 
   const len = props.geojson.features.length;
@@ -103,56 +102,34 @@ function GeojsonCircles(props) {
     closeOnClick: false
   }); */
 
-  map.on('mouseenter', 'red-circle-layer', function (e) {
-    if (map.queryRenderedFeatures(e.point).filter(feature => feature.source !== 'circle-source').length === 0) {
-      console.log();
-    }
+  const node = document.createElement('div');
+  var lastXCoord = undefined;
+  var lastYCoord = undefined;
+  var lastPos = undefined;
+
+  function popup(e) {
     // Change the cursor style as a UI indicator.
-    map.getCanvas().style.cursor = 'pointer';
-
-    var coordinates = e.features[0].geometry.coordinates.slice();
-    var description = e.features[0].properties.description;
-    var id = e.features[0].properties.id;
-
-    // Ensure that if the map is zoomed out such that multiple
-    // copies of the feature are visible, the popup appears
-    // over the copy being pointed to.
-    while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-      coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-    }
-
-    const feature = e.features[0];
-
-    const popupNode = document.createElement('div');
-    ReactDOM.render(<Popup feature={feature} />, popupNode);
-    popUpRef.current.setLngLat(e.lngLat).setDOMContent(popupNode).addTo(map);
-
-    /* const newPopup = new mapboxgl.Popup()
-      .setLngLat(e.lngLat)
-      .addTo(map); */
-
-    // create popup node
-    /* setPopup(newPopup);
     const canvas = map.getCanvas();
-    const node = document.getElementsByClassName('bananinha'); */
-    /* if (e) {
+    if (e !== undefined) {
       canvas.style.cursor = 'pointer';
-      node.textContent = e.features[0].properties.title;
-      node.style.left = `${e.originalEvent.clientX}px`;
-      node.style.top = `${e.originalEvent.clientY}px`;
-      node.style.display = 'block'; */
-      /* popUpRef.current.trackPointer(); */
-    /* } else {
+      ReactDOM.render(<Popup feature={e.features[0]} />, node);
+      popUpRef.current.trackPointer().setDOMContent(node).addTo(map);
+      /* node.style.left = `${e.originalEvent.clientX}px`;
+      node.style.top = `${e.originalEvent.clientY}px`; */
+      /* node.style.display = 'block';
+      lastXCoord = `${e.originalEvent.clientX}px`;
+      lastYCoord = `${e.originalEvent.clientY}px`; */
+      lastPos = e.lngLat;
+    } else {
       canvas.style.cursor = '';
-      node.style.display = 'none';
-      node.textContent = '';
-    } */
-    e.preventDefault();
-  });
+      popUpRef.current.setLngLat(lastPos);
+      /* node.style.left = lastXCoord;
+      node.style.top = lastYCoord; */
+    }
+  };
 
-  map.on('mouseleave', 'red-circle-layer', function () {
-    map.getCanvas().style.cursor = '';
-  });
+  map.on('mouseenter', 'red-circle-layer', event => popup(event));
+  map.on('mouseleave', 'red-circle-layer', () => popup());
 
 
   // Updating data
