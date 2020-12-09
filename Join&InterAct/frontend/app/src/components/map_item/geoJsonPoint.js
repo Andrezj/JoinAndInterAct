@@ -1,32 +1,45 @@
-import React, { useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import ReactDOM from 'react-dom';
 import mapboxgl from "mapbox-gl";
 import { useMap } from "../map/mapBox";
 import fetchFakeData from "../map/fetchFakeData";
-import popUpRef from './popup';
+import Popup from './popup';
+
+const popupContext = React.createContext(undefined);
+
+export const usePopup = () => React.useContext(popupContext);
 
 function GeojsonCircles(props) {
   // Getting map from context
   const map = useMap();
-  const popUpRef = useRef(new mapboxgl.Popup({ offset: 15 }));
-  const center = map.getCenter();
-  console.log(center);
-  const { lng, lat } = center;
-
-  useEffect(() => {
-    const len = props.geojson.features.length;
-    const newId = String(len)
-    const centerGeoJson = {
-    id: newId,
-    type: 'Feature' ,
-    geometry: {type: "Point", coordinates: [center.lng, center.lat]}
+  var markerHeight = 30, markerRadius = 10, linearOffset = 25;
+  var popupOffsets = {
+    'top': [0, 0],
+    'top-left': [0, 0],
+    'top-right': [0, 0],
+    'bottom': [0, -markerHeight],
+    'bottom-left': [linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
+    'bottom-right': [-linearOffset, (markerHeight - markerRadius + linearOffset) * -1],
+    'left': [markerRadius, (markerHeight - markerRadius) * -1],
+    'right': [-markerRadius, (markerHeight - markerRadius) * -1]
   };
-    props.geojson.features.push(centerGeoJson);
+  const popUpRef = useRef(new mapboxgl.Popup({ anchor: 'bottom', offset: popupOffsets }));
+  const center = map.getCenter();
+
+  const len = props.geojson.features.length;
+  const newId = String(len)
+  const centerGeoJson = {
+    id: newId,
+    type: 'Feature',
+    geometry: { type: "Point", coordinates: [center.lng, center.lat] }
+  };
+  /* props.geojson.features.push(centerGeoJson); */
+  useEffect(() => {
   }, []);
 
   // Defining data source and layer
   React.useEffect(() => {
-    map.addSource("circle-source", {
+    map.addSource("red-circle-source", {
       type: "geojson",
       // By default we're using just an empty geojson
       data: {
@@ -35,44 +48,101 @@ function GeojsonCircles(props) {
       },
     })
     map.addLayer({
-      id: "circle-layer",
+      id: "red-circle-layer",
       type: "circle",
-      source: "circle-source",
+      source: "red-circle-source",
       paint: {
         "circle-color": "red",
+      },
+    });
+    map.addSource("blue-circle-source", {
+      type: "geojson",
+      // By default we're using just an empty geojson
+      data: {
+        type: "FeatureCollection",
+        features: [],
+      },
+    })
+    map.addLayer({
+      id: "blue-circle-layer",
+      type: "circle",
+      source: "blue-circle-source",
+      paint: {
+        "circle-color": "blue",
       },
     });
 
 
     return () => {
-      map.removeLayer("circle-layer")
-      map.removeSource("circle-source")
+      map.removeLayer("red-circle-layer")
+      map.removeSource("red-circle-source")
+      map.removeLayer("blue-circle-layer")
+      map.removeSource("blue-circle-source")
     }
   }, []);
 
-  /* map.on('click', 'circle-layer', e => {
+  /* map.on('click', 'red-circle-layer', e => {
+    map.getCanvas().style.cursor = 'pointer';
+    var popup = new mapboxgl.Popup({ closeOnClick: false })
+      .setLngLat([-96, 37.8])
+      .setHTML('<h1>Hello World!</h1>')
+      .addTo(map);
     if (e.features.length) {
       const feature = e.features[0];
       // create popup node
       const popupNode = document.createElement('div');
-      ReactDOM.render(<Popup feature={feature} />, popupNode);
-      // set popup on map
+            //ReactDOM.render(<Popup feature={feature} />, popupNode);
+            // set popup on map
       popUpRef.current.setLngLat(feature.geometry.coordinates).setDOMContent(popupNode).addTo(map);
     }
   }); */
-  
+
+  /* var popup = new mapboxgl.Popup({
+    closeButton: false,
+    closeOnClick: false
+  }); */
+
+  const node = document.createElement('div');
+  var lastXCoord = undefined;
+  var lastYCoord = undefined;
+  var lastPos = undefined;
+
+  function popup(e) {
+    // Change the cursor style as a UI indicator.
+    const canvas = map.getCanvas();
+    if (e !== undefined) {
+      canvas.style.cursor = 'pointer';
+      ReactDOM.render(<Popup feature={e.features[0]} />, node);
+      popUpRef.current.trackPointer().setDOMContent(node).addTo(map);
+      /* node.style.left = `${e.originalEvent.clientX}px`;
+      node.style.top = `${e.originalEvent.clientY}px`; */
+      /* node.style.display = 'block';
+      lastXCoord = `${e.originalEvent.clientX}px`;
+      lastYCoord = `${e.originalEvent.clientY}px`; */
+      lastPos = e.lngLat;
+    } else {
+      canvas.style.cursor = '';
+      popUpRef.current.setLngLat(lastPos);
+      /* node.style.left = lastXCoord;
+      node.style.top = lastYCoord; */
+    }
+  };
+
+  map.on('mouseenter', 'red-circle-layer', event => popup(event));
+  map.on('mouseleave', 'red-circle-layer', () => popup());
+
 
   // Updating data
   React.useEffect(async () => {
     async function loadDots() {
-      const results = await fetchFakeData(lng, lat);
-      console.log(results);
-      map.getSource("circle-source").setData(props.geojson);
+      const results = await fetchFakeData(center);
+      map.getSource("blue-circle-source").setData(centerGeoJson);
+      map.getSource("red-circle-source").setData(results);
     }
     loadDots();
   }, [props.geojson.features]);
 
-  return null
+  return (null);
 }
 
 export default GeojsonCircles

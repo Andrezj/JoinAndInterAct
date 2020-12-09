@@ -1,13 +1,13 @@
 const fetchFakeData = centerCoordinates => {
     const newFeaturesList = [];
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 15; i++) {
       const id = i;
-      const { longitude, latitude } = getRandomCoordinate(centerCoordinates);
+      const centerPoint = getRandomCoordinate(centerCoordinates);
       newFeaturesList.push({
         type: 'Feature',
         geometry: {
           type: 'Point',
-          coordinates: [longitude, latitude],
+          coordinates: centerPoint,
         },
         properties: {
           id,
@@ -15,6 +15,7 @@ const fetchFakeData = centerCoordinates => {
           description: `description for Random Point #${id}`,
         },
       });
+      console.log(newFeaturesList[i].properties.id)
     }
   
     return Promise.resolve({
@@ -25,15 +26,15 @@ const fetchFakeData = centerCoordinates => {
   
   /**
    * Generates a random point within 0.025 radius of map center coordinates.
-   * @param {CoordinatePair} centerCoordinates - the {@link CoordinatePair} for the map center
-   * @return {CoordinatePair} randomly generated coordinate pair
    */
-  const getRandomCoordinate = ({ longitude: centerLon, latitude: centerLat }) => {
-    const r = 0.025 * Math.sqrt(Math.random());
+  const getRandomCoordinate = (center) => {
+    const centerLon = center.lng;
+    const centerLat = center.lat;
+    const r = 0.05 * Math.sqrt(Math.random());
     const theta = Math.random() * 2 * Math.PI;
     const latitude = centerLat + r * Math.cos(theta);
     const longitude = centerLon + r * Math.sin(theta);
-    return { longitude, latitude };
+    return [longitude, latitude];
   };
   
   export default fetchFakeData;

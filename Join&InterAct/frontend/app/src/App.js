@@ -13,6 +13,7 @@ function App() {
       <HeaderForm />
       <MapHeader />
       <Mapbox>
+        <pre id="features"></pre>
         <GeojsonCircles geojson={
           { 
             type: 'FeatureCollection',
@@ -33,7 +34,8 @@ function App() {
                 geometry: {type: "Point", coordinates: [122.74, 40.01]}
               },
             ]
-          }} />
+          }}>
+          </GeojsonCircles>
       </Mapbox>
     </>
   );
