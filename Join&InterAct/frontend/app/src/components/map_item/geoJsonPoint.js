@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import ReactDOM from 'react-dom';
 import mapboxgl from "mapbox-gl";
 import { useMap } from "../map/mapBox";
-import fetchFakeData from "../map/fetchFakeData";
+import fetchFakeData from "../../utils/fetchFakeData";
 import Popup from './popup';
 
 const popupContext = React.createContext(undefined);
@@ -25,6 +25,7 @@ function GeojsonCircles(props) {
   };
   const popUpRef = useRef(new mapboxgl.Popup({ anchor: 'bottom', offset: popupOffsets }));
   const center = map.getCenter();
+  console.log(center);
 
   const len = props.geojson.features.length;
   const newId = String(len)
@@ -133,7 +134,7 @@ function GeojsonCircles(props) {
   });
 
   // Updating data
-  React.useEffect(async () => {
+  React.useEffect(() => {
     async function loadDots() {
       const results = await fetchFakeData(center);
       map.getSource("blue-circle-source").setData(centerGeoJson);

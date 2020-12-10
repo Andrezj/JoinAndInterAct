@@ -1,0 +1,31 @@
+#list-view-page {
+    max-width: 120;
+    margin: 0 auto;
+    padding: 60px 30px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+#list-view-page main {
+    margin-left: 20px;
+}
+
+@media (max-width: 960px) {
+    #list-view-page {
+        align-items: center;
+        flex-direction: column;
+        margin-right: 20px;
+    }
+
+    #list-view-page main {
+        margin-top: 30px;
+        width: 100%;
+    }
+
+    #list-view-page aside {
+        margin-left: 20px;
+        width: 90%;
+    }
+}
