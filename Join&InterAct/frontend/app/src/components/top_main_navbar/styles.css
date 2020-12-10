@@ -1,2 +1,11 @@
-body {
+.top-nav-bar {
+    text-align: center;
+}
+
+.top-nav-buttons-container {
+    padding: 20px;
+}
+
+.top-nav-button {
+    padding: 10px;
 }

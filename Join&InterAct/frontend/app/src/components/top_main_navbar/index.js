@@ -3,15 +3,15 @@ import './styles.css';
 
 export default function MainNavbar() {
     return (
-        <div style={{textAlign:"center"}}>
+        <div id='top-nav-bar'>
             <h1 className="title">Join&InterAct</h1>
-            <div className="topnav" style={{ padding:'20px'}}>
-                <a className="active" href="#home" style={{ padding:'10px'}}> Home</a>
-                <a href="#home" style={{ padding:'10px'}}>Play Safe</a>
-                <a href="#profile" style={{ padding:'10px'}}>Your Profile</a>
-                <a href="#contact" style={{ padding:'10px'}}>Friends</a>
-                <a href="#about" style={{ padding:'10px'}}>About</a>
-                <a href="#logout" style={{ padding:'10px'}}>Sign Out</a>
+            <div className="top-nav-buttons-container">
+                <a className="top-nav-button" href="#home" > Home</a>
+                <a className='top-nav-button' href="#play-safe" >Play Safe</a>
+                <a className='top-nav-button' href="#profile" >Your Profile</a>
+                <a className='top-nav-button' href="#contact" >Friends</a>
+                <a className='top-nav-button' href="#about" >About</a>
+                <a className='top-nav-button' href="#logout" >Sign Out</a>
             </div>
         </div> 
     );

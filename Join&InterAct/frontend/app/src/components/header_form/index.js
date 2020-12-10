@@ -1,16 +1,10 @@
 import React from 'react';
+import styles from './styles.css';
 
 export default function HeaderhtmlForm() {
     return (
             <div>
-                <table style=
-                    {{margin: "auto",
-                    width: "100%",
-                    height: "fit-content",
-                    display: "inline-flexbox",
-                    flexDirection: "column",
-                    justifyContent: "center"}}
-                >
+                <table id='header-form-container'>
                     <thead>
                         <tr>
                             <th colSpan="3 padding">See what is going around the area</th>

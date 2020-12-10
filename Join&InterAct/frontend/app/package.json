@@ -36,6 +36,7 @@
     ]
   },
   "devDependencies": {
+    "axios": "^0.21.0",
     "mapbox-gl": "^1.13.0",
     "react-animals": "0.0.82",
     "react-router-dom": "^5.2.0"

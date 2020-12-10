@@ -72,7 +72,7 @@ function Mapbox(props) {
     }, [isMapReady])
   
     return (
-      <div ref={mapRoot} className="map-container" /* style={{ height: "400px", margin: "20px 0" }} */>
+      <div ref={mapRoot} className="map-container">
         {map !== undefined &&  (
           <MapContext.Provider value={map}>{props.children}</MapContext.Provider>
         )}

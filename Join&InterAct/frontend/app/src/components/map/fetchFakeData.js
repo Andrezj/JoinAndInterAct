@@ -41,12 +41,13 @@ const fetchFakeData = centerCoordinates => {
   };
 
   const animalsList = ['alligator', 'anteater', 'armadillo', 'aurochs', 'axolotl', 'badger', 'bat', 'beaver', 'buffalo', 'camel', 'capybara', 'chameleon', 'cheetah', 'chinchilla', 'chipmunk', 'chupacabra', 'cormorant', 'coyote', 'crow', 'dingo', 'dinosaur', 'duck', 'elephant', 'ferret', 'fox', 'frog', 'giraffe', 'gopher', 'grizzly', 'hedgehog', 'hippo', 'hyena', 'ibex', 'ifrit', 'iguana', 'jackal', 'jackalope', 'kangaroo', 'koala', 'kraken', 'leopard', 'lemur', 'liger', 'loris', 'manatee', 'mink', 'monkey', 'moose', 'narwhal', 'Nyan Cat', 'orangutan', 'otter', 'panda', 'penguin', 'platypus', 'pumpkin', 'python', 'quagga', 'rabbit', 'raccoon', 'rhino', 'sheep', 'shrew', 'skunk', 'squirrel', 'tiger', 'turtle', 'walrus', 'wolf', 'wolverine', 'wombat'];
-  const msgs = ['is near', 'is nearby', 'was found', 'is around']
+  const msgs = ['is near', 'is nearby', 'was found', 'is around', 'appeared']
 
   const getRandomAnimal = () =>{
     const i = Math.floor(Math.random() * animalsList.length);
     var animalName = animalsList[i];
-    const j = Math.floor(i / 18);
+    const d = Math.floor(animalsList.length / msgs.length);
+    const j = Math.floor(i / d);
     const msg = msgs[j]
     animalName = animalName.charAt(0).toUpperCase() + animalName.slice(1);
     return [animalName, msg];

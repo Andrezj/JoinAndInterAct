@@ -1,0 +1,8 @@
+.header-form-container {
+    margin: "auto";
+    width: 100%;
+    height: fit-content;
+    display: inline-flexbox;
+    flex-direction: column;
+    justify-content: center;
+}
