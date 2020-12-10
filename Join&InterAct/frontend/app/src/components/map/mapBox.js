@@ -30,6 +30,8 @@ function Mapbox(props) {
           (err) => {
             const lng = Math.floor(Math.random() * (1 + 180 - (-180))) -180;
             const lat = Math.floor(Math.random() * (1 + 90 - (-90))) -90;
+
+            setCenter([lng, lat]);
           },
           {
             timeout: 40000,
