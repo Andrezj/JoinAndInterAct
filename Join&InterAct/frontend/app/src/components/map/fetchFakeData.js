@@ -3,6 +3,8 @@ const fetchFakeData = centerCoordinates => {
     for (let i = 0; i < 15; i++) {
       const id = i;
       const centerPoint = getRandomCoordinate(centerCoordinates);
+      const animal = getRandomAnimal()[0];
+      const msg = getRandomAnimal()[1];
       newFeaturesList.push({
         type: 'Feature',
         geometry: {
@@ -11,11 +13,12 @@ const fetchFakeData = centerCoordinates => {
         },
         properties: {
           id,
-          name: `Random Point #${id}`,
-          description: `description for Random Point #${id}`,
+          animal,
+          msg,
+          name: `Random ${animal}`,
+          description: `A random ${animal} ${msg}`,
         },
       });
-      console.log(newFeaturesList[i].properties.id)
     }
   
     return Promise.resolve({
@@ -36,5 +39,17 @@ const fetchFakeData = centerCoordinates => {
     const longitude = centerLon + r * Math.sin(theta);
     return [longitude, latitude];
   };
+
+  const animalsList = ['alligator', 'anteater', 'armadillo', 'aurochs', 'axolotl', 'badger', 'bat', 'beaver', 'buffalo', 'camel', 'capybara', 'chameleon', 'cheetah', 'chinchilla', 'chipmunk', 'chupacabra', 'cormorant', 'coyote', 'crow', 'dingo', 'dinosaur', 'duck', 'elephant', 'ferret', 'fox', 'frog', 'giraffe', 'gopher', 'grizzly', 'hedgehog', 'hippo', 'hyena', 'ibex', 'ifrit', 'iguana', 'jackal', 'jackalope', 'kangaroo', 'koala', 'kraken', 'leopard', 'lemur', 'liger', 'loris', 'manatee', 'mink', 'monkey', 'moose', 'narwhal', 'Nyan Cat', 'orangutan', 'otter', 'panda', 'penguin', 'platypus', 'pumpkin', 'python', 'quagga', 'rabbit', 'raccoon', 'rhino', 'sheep', 'shrew', 'skunk', 'squirrel', 'tiger', 'turtle', 'walrus', 'wolf', 'wolverine', 'wombat'];
+  const msgs = ['is near', 'is nearby', 'was found', 'is around']
+
+  const getRandomAnimal = () =>{
+    const i = Math.floor(Math.random() * animalsList.length);
+    var animalName = animalsList[i];
+    const j = Math.floor(i / 18);
+    const msg = msgs[j]
+    animalName = animalName.charAt(0).toUpperCase() + animalName.slice(1);
+    return [animalName, msg];
+  }
   
   export default fetchFakeData;

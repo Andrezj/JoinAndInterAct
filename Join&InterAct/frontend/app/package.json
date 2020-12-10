@@ -37,6 +37,7 @@
   },
   "devDependencies": {
     "mapbox-gl": "^1.13.0",
-    "react-animals": "0.0.82"
+    "react-animals": "0.0.82",
+    "react-router-dom": "^5.2.0"
   }
 }
