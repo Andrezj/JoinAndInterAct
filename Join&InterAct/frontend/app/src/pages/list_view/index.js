@@ -40,7 +40,7 @@ function ListView() {
       <aside>
         <strong>Join in</strong>
         <div>
-          <Animal />
+          <Animal square />
                     As a Random Animal
                 </div>
         <SideForm />
