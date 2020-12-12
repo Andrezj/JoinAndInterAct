@@ -17,7 +17,7 @@ const UserCardItem = ({ feature }) => {
   return (
     <li className='user-card'>
       <div id={`item-${id}`} className='item-content' onMouseOver={handleHover} onMouseLeave={handleLeave}>
-        <h3 className='item-title'>{name}</h3>
+        <h4 className='item-title'>{name}</h4>
         <div className='item-body'>
           <Animal name={`${animal}`} rounded dance={animate}/>
           <div className='item-description'>{description}</div>

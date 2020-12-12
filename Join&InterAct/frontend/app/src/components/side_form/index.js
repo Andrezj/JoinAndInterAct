@@ -3,9 +3,9 @@ import React, { useState, useEffect } from 'react';
 function SideForm({ onSubmit }) {
 
   const [interests, setInterests] = useState([]);
-  const [interest, setInterest] = useState("");
-  const [activity, setActivity] = useState("");
-  const [description, setDescription] = useState("");
+  const [interest, setInterest] = useState('');
+  const [activity, setActivity] = useState('');
+  const [description, setDescription] = useState('');
 
   const [latitude, setLatitude] = useState('');
   const [longitude, setLongitude] = useState('');
@@ -41,51 +41,53 @@ function SideForm({ onSubmit }) {
       description
     });
 
-    setInterest("");
-    setActivity("");
-    setDescription("");
+    setInterest('');
+    setActivity('');
+    setDescription('');
   }
 
   return (
     <form onSubmit={handleSubmit}>
       <div className="input-block">
-        <label htmlFor="What you like?">Add interest</label>
+        <label htmlFor="interest"
+        >Add interest</label>
         <input
           name="interest"
-          id="interest-side-form"
+          id="interest"
           required
           placeholder="What you like?"
           value={interest}
-          onChange={e => setInterest}
+          onChange={e => setInterest(e.target.value)}
         />
       </div>
 
       <div className="input-block">
-        <label htmlFor="What are yoou doing?">Add activity</label>
         <input
           name="activity"
-          id="activity-side-form"
+          id="activity"
           required
           placeholder="What are you doing?"
           value={activity}
-          onChange={e => setActivity}
+          onChange={e => setActivity(e.target.value)}
         />
+        <label htmlFor="activity"
+        >Add activity</label>
       </div>
 
       <div className="input-block">
-        <label htmlFor="Say something about you">Add description</label>
         <input
           name="desc"
           id="desc-side-form"
-          placeholder="Say something about you"
+          placeholder="Some cool description"
           value={description}
-          onChange={e => setDescription}
+          onChange={e => setDescription(e.target.value)}
         />
+        <label htmlFor="description"
+        >Add description</label>
       </div>
 
       <div className="input-group">
         <div className="input-block">
-          <label htmlFor="latitude">Latitude</label>
           <input
             type="float"
             name="latitude"
@@ -94,10 +96,10 @@ function SideForm({ onSubmit }) {
             value={latitude}
             onChange={e => setLatitude(e.target.value)}
           />
+          <label htmlFor="latitude">Latitude</label>
         </div>
 
         <div className="input-block">
-          <label htmlFor="longitude">Longitude</label>
           <input
             type="float"
             name="longitude"
@@ -106,6 +108,7 @@ function SideForm({ onSubmit }) {
             value={longitude}
             onChange={e => setLongitude(e.target.value)}
           />
+          <label htmlFor="longitude">Longitude</label>
         </div>
       </div>
 

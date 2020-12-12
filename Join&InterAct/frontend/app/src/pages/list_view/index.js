@@ -39,10 +39,10 @@ function ListView() {
     <div id='list-view-page'>
       <aside>
         <strong>Join in</strong>
-        <div>
+        <div className='profile-head'>
           <Animal square />
-                    As a Random Animal
-                </div>
+            <div className='short-desc'>As a Random Animal</div>
+        </div>
         <SideForm />
       </aside>
       <main>

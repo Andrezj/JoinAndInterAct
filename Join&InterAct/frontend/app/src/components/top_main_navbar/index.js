@@ -6,7 +6,8 @@ export default function MainNavbar() {
         <div id='top-nav-bar'>
             <h1 className="title">Join&InterAct</h1>
             <div className="top-nav-buttons-container">
-                <a className="top-nav-button" href="/" > Home</a>
+                <a className="top-nav-button" href="/" >Home</a>
+                <a className="top-nav-button" href="/list" >List</a>
                 <a className='top-nav-button' href="#play-safe" >Play Safe</a>
                 <a className='top-nav-button' href="#profile" >Your Profile</a>
                 <a className='top-nav-button' href="#contact" >Friends</a>

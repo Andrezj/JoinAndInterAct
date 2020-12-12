@@ -5,7 +5,6 @@ const fetchFakeData = centerCoordinates => {
       const centerPoint = getRandomCoordinate(centerCoordinates);
       const animal = getRandomAnimal()[0];
       const msg = getRandomAnimal()[1];
-      console.log(newFeaturesList);
       newFeaturesList.push({
         type: 'Feature',
         geometry: {
