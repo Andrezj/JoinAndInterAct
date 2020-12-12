@@ -1,4 +1,4 @@
-const text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.\
+var text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.\
 Sed ac erat eleifend, blandit nibh at, interdum justo.\
 Sed sit amet eros tincidunt, congue nibh id, laoreet nunc.\
 Ut ac arcu interdum, porttitor arcu a, condimentum leo.\
@@ -13,7 +13,9 @@ Suspendisse eu est sollicitudin, auctor mauris eget, ultricies elit.\
 Vivamus pretium magna at urna maximus, porttitor facilisis sapien congue.\
 Phasellus elementum lectus auctor, lobortis elit in, imperdiet purus.\
 Donec suscipit orci quis odio blandit, sit amet sollicitudin sapien auctor.\
-Curabitur vulputate leo eu dapibus suscipit.";
+Curabitur vulputate leo eu dapibus suscipit";
+
+text += text;
 
 const messages = text.split('.');
 

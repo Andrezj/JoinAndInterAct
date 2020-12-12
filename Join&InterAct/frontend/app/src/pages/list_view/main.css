@@ -5,7 +5,17 @@ main {
 main ul {
     margin-top: 0px;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    list-style: none;
+}
+
+main .conversation {
+    margin-top: 0px;
+    display: grid;
+    display: flex;
+    flex-direction: column;
     gap: 20px;
     list-style: none;
 }

@@ -1,0 +1,27 @@
+.messages {
+    display: flex;
+    flex-direction: column-reverse;
+    margin-top: 0px;
+    height: 60vh;
+    overflow-y: scroll;
+}
+
+.messages ul{
+    margin-top: 0px;
+    display: inline;
+}
+
+.message-container {
+    display: flexbox;
+    line-height: 40px;
+}
+
+.message-content {
+    width: min-content;
+    display: inline;
+    color: rgb(76, 89, 102);
+    background-color: rgba(253, 253, 253, 0.63);
+    border-radius: 10px;
+    padding: 5px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}

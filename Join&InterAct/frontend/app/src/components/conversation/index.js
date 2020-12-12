@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import fetchFakeMessages from '../../utils/fetchFakeMessages';
 
+import './styles.css';
+
 
 function Conversation(feature) {
 
@@ -16,13 +18,19 @@ function Conversation(feature) {
   }, []);
 
   return (
-    <div>
+    <div className='messages'>
       <ul>
         {
           messages.map(message => (
-            <div
-              style={{ textAlign: `${message.source ? 'left' : 'right'}` }}
-            >{message.message}</div>
+            <div>
+              <div className='message-container'
+                style={{ textAlign: `${message.source ? 'left' : 'right'}` }}
+              >
+                <div className='message-content'
+                >{message.message}</div>
+              </div>
+              
+            </div>
           ))
         }
       </ul>

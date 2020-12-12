@@ -1,0 +1,12 @@
+#conversation-page {
+    max-width: 120;
+    margin: 0 auto;
+    padding: 60px 30px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+#conversation-page main {
+    margin-left: 20px;
+}
