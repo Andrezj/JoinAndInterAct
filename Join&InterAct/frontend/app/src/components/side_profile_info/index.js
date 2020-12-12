@@ -6,7 +6,7 @@ function ProfileInfo() {
     <>
       <div className="info-block">
         <div className='small-list-title'>
-          Your interests
+          Your interests in common
         </div>
         <ul>
 
@@ -15,7 +15,7 @@ function ProfileInfo() {
 
       <div className="info-block">
         <div className='small-list-title'>
-          Your recent activities
+          Your identical recent activities 
         </div>
         <ul>
           

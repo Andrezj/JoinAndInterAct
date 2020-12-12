@@ -4,19 +4,36 @@ import fetchFakeMessages from '../../utils/fetchFakeMessages';
 import './styles.css';
 
 
-function Conversation(feature) {
+function Conversation({ feature }, { onSubmit }) {
 
-  const [messages, setmessages] = useState([]);
-  const [newMessage, setNewMassage] = useState("");
+  const [messages, setMessages] = useState([]);
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     async function loadMesages() {
       await fetchFakeMessages().then(data => {
-        setmessages(data);
+        setMessages(data);
       });
     }
     loadMesages();
   }, []);
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+
+    await handleSendMessage({
+      message
+    });
+
+    setMessage('');
+  }
+
+  async function handleSendMessage(data) {
+
+    /* const response = await api.post('/messages/{id}', data) */
+
+    setMessages([...messages, data]);
+  }
 
   return (
     <div>
@@ -37,15 +54,17 @@ function Conversation(feature) {
           }
         </ul>
       </div>
-      <form className='message-sender-form'>
+      <form
+        className='message-sender-form'
+        onSubmit={handleSubmit}
+      >
         <div className='message-sender-container'>
           <input
             name='message-sender'
             id='message-sender'
-            required
             placeholder='Eu só acho engraçado que...'
-            value={newMessage}
-            onChange={e => setNewMassage(e.target.value)}
+            value={message}
+            onChange={e => setMessage(e.target.value)}
           >
           </input>
         </div>
