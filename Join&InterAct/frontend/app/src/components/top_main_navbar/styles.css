@@ -1,5 +1,17 @@
 .top-nav-bar {
     text-align: center;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-content: center;
+    background: rgba(137, 117, 216, 0.281);
+    box-shadow: inset 0 0 15em rgba(126, 88, 238, 0.527);
+    -webkit-font-smoothing: antialiased;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+
+    border:rgba(108, 84, 187, 0.76) solid 2px;
 }
 
 .top-nav-buttons-container {

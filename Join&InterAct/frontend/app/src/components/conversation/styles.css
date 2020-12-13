@@ -1,4 +1,7 @@
 .messages {
+    background-color: rgba(224, 197, 235, 0.884);
+    border-radius: 10px;
+    border: rgb(153, 136, 185) solid 0.5px;
     display: flex;
     flex-direction: column-reverse;
     margin-top: 0px;

@@ -2,14 +2,14 @@ const fetchFakeData = centerCoordinates => {
     const newFeaturesList = [];
     for (let i = 0; i < 15; i++) {
       const id = i;
-      const centerPoint = getRandomCoordinate(centerCoordinates);
+      const coordinates = getRandomCoordinate(centerCoordinates);
       const animal = getRandomAnimal()[0];
       const msg = getRandomAnimal()[1];
       newFeaturesList.push({
         type: 'Feature',
         geometry: {
           type: 'Point',
-          coordinates: centerPoint,
+          coordinates,
         },
         properties: {
           id,

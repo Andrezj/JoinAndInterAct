@@ -6,6 +6,8 @@
     display: flex;
     flex-direction: row;
     align-items: flex-start;
+    background-color: rgba(173, 116, 219, 0.267);
+    border-radius: 5px;
 }
 
 #conversation-page main {
