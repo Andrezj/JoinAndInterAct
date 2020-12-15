@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  mongo:
+    image: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: pass
+      MONGO_INITDB_DATABASE: usersData
+    ports:
+      - "27017:27017"
+
+  # postgres:
+  #   image: postgres:9.6
+  #   environment:
+  #     - POSTGRES_HOST_AUTH_METHOD=trust
+  #     - POSTGRES_DATABASE=messagesdb
+  #   ports:
+  #     - "5433:5432"
+  #   volumes:
+  #     - "./docker_data/postgres:/var/lib/postgresql/data"
+    
+    
